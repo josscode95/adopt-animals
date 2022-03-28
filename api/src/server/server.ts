@@ -10,7 +10,7 @@ interface Paths{
   user:string;
   auth:string;
   notes?:string;
-  adoption?:string;
+  adoption:string;
 }
 
 export default class Server{
@@ -25,7 +25,8 @@ export default class Server{
 
     this.paths = {
       user: '/api/usuarios',
-      auth: '/api/auth'
+      auth: '/api/auth',
+      adoption: '/api/adoption',
     }
 
     this.conectarDB();
@@ -51,6 +52,7 @@ export default class Server{
   private routes(){
     this.app.use(this.paths.user, require('../routes/user'));
     this.app.use(this.paths.auth, require('../routes/auth'));
+    this.app.use(this.paths.adoption, require('../routes/adoption'));
   }
 
   public listen(){
