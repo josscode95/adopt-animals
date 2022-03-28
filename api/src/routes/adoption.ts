@@ -1,14 +1,23 @@
 import { Router } from 'express'; 
 import { check } from 'express-validator';
-import { validateFields } from '../middlewares/validity-fields';
-import { isAdminRol } from '../middlewares/validity-rols';
+import { createAdoption } from '../controller/adoption.controller';
+const {
+  validateFields,
+  validateJWT,
+  isAdminRol
+} = require('../middlewares');
 
 const router = Router();
 
-router.get(
-  '/', 
-  isAdminRol
+router.post(
+  "/",
+  [
+    validateJWT,
+    isAdminRol,
+    check('nombre', 'El nombre es obligatorio').not().isEmpty(),
+    validateFields
+  ],
+  createAdoption
 )
-
 
 module.exports = router;

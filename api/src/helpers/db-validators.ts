@@ -1,5 +1,5 @@
-import Rol from '../models/rol';
 import Usuario from '../models/usuario';
+import Rol from '../models/rol';
 
 export const isValidRole = async(rol:string = '') => {
   const existeRol = await Rol.findOne({rol});
