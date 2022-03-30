@@ -1,5 +1,6 @@
 import Usuario from '../models/usuario';
 import Rol from '../models/rol';
+import Adoption from '../models/adoption';
 
 export const isValidRole = async(rol:string = '') => {
   const existeRol = await Rol.findOne({rol});
@@ -25,4 +26,14 @@ export const existUserById = async(id:string = '') => {
     throw new Error(`El ${id} debe ser un id valido de MongoBD`)
   }
 }
-  
+
+export const existAdoptById = async(id:string = '') => {
+  if(id.length === 24){
+    const existAdoption = await Adoption.findById(id);
+    if(!existAdoption){
+      throw new Error(`El usuario con el ${id} no se encuentra en la BD`)
+    }
+  }else{
+    throw new Error(`El ${id} debe ser un id valido de MongoBD`)
+  }
+}

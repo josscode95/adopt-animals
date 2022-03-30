@@ -1,6 +1,7 @@
 import { Router } from 'express'; 
 import { check } from 'express-validator';
-import { createAdoption } from '../controller/adoption.controller';
+import { createAdoption, deleteAdoption, getAdoptions, putAdoption } from '../controller/adoption.controller';
+import { existAdoptById } from '../helpers/db-validators';
 const {
   validateFields,
   validateJWT,
@@ -18,6 +19,39 @@ router.post(
     validateFields
   ],
   createAdoption
+)
+
+router.get(
+  "/",
+  [
+    isAdminRol,
+    validateFields
+  ],
+  getAdoptions
+)
+
+router.put(
+  "/:id",
+  [
+    validateJWT,
+    isAdminRol,
+    check('id', 'No es un ID valido').isMongoId(),
+    check('id').custom(existAdoptById),
+    validateFields
+  ],
+  putAdoption
+)
+
+router.delete(
+  "/:id",
+  [
+    validateJWT,
+    isAdminRol,
+    check("id", "no es un ID valido").isMongoId(),
+    check("id").custom(existAdoptById),
+    validateFields
+  ],
+  deleteAdoption
 )
 
 module.exports = router;
