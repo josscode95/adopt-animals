@@ -7,8 +7,6 @@ import cors = require('cors');
 import morgan = require('morgan');
 import { Paths } from '../interfaces/interfaces';
 
-
-
 export default class Server{
 
   public app:express.Application;
