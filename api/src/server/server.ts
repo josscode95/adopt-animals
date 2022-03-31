@@ -5,14 +5,9 @@ import path from 'path';
 
 import cors = require('cors');
 import morgan = require('morgan');
+import { Paths } from '../interfaces/interfaces';
 
-interface Paths{
-  user:string;
-  auth:string;
-  notes?:string;
-  adoption:string;
-  adoptionAssign:string;
-}
+
 
 export default class Server{
 
@@ -28,7 +23,8 @@ export default class Server{
       user: '/api/usuarios',
       auth: '/api/auth',
       adoption: '/api/adoption',
-      adoptionAssign: '/api/add-adoption'
+      adoptionAssign: '/api/add-adoption',
+      notes: '/api/notes'
     }
 
     this.conectarDB();
@@ -56,6 +52,7 @@ export default class Server{
     this.app.use(this.paths.auth, require('../routes/auth'));
     this.app.use(this.paths.adoption, require('../routes/adoption'));
     this.app.use(this.paths.adoptionAssign, require('../routes/adoption-assign'));
+    this.app.use(this.paths.notes, require('../routes/notes'));
   }
 
   public listen(){
